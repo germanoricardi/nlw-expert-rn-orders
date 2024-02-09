@@ -1,9 +1,10 @@
+import { Header } from "@/components/header";
 import { Text, View } from "react-native";
 
 export default function Home(){
   return (
     <View className="pt-8 flex-1">
-      <Text className="text-white text-2xl font-heading">Hello React Native</Text>
+      <Header title="Faça seu pedido" cartQuantityItems={7} />
     </View>
   )
 }
