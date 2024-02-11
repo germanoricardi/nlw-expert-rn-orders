@@ -4,7 +4,7 @@ import { useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/utils/data/functions/format-currency";
 import { PRODUCTS } from "@/utils/data/products";
 import { Feather } from "@expo/vector-icons";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { Redirect, useLocalSearchParams, useNavigation } from "expo-router";
 import { Image, Text } from "react-native";
 import { View } from "react-native";
 
@@ -15,14 +15,16 @@ export default function Product() {
   const { id } = useLocalSearchParams();
 
   const product = PRODUCTS.find((item) => item.id === id)
-
-  function handleAddToCart() {
-    product && cartStore.add(product)
-    navigation.goBack()
-  }
   
   if(!product)
-    return <></>
+    return <Redirect href="/" />
+
+  function handleAddToCart() {
+    if(product) {
+      cartStore.add(product)
+      navigation.goBack()
+    }
+  }
 
   return (
     <View className="flex-1">
